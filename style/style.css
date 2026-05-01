@@ -1,8 +1,14 @@
+.index-container {
+  max-width: 900px;
+  margin: 0 auto 0 0; /* Keeps it left-aligned */
+}
+
 body {
       font-family: monospace;
       background: white;
       color: black;
       padding: 20px;
+      font-size: 16px;
     }
 
     a {
@@ -16,13 +22,66 @@ body {
 
     .header {
       margin-bottom: 10px;
+      display: none;
     }
 
     .row {
-      display: flex;
-      gap: 40px;
+      display: grid;
+      grid-template-columns:  minmax(0, 1fr) 18ch 8ch;
+      gap: 20px;
+      align-items: center;
+      width: 100%;
+      font-size: 20px;
     }
 
-    .name { width: 300px; }
-    .date { width: 200px; }
-    .size { width: 100px; text-align: right; }
+    .name { 
+      overflow: hidden;
+      text-overflow: ellipsis; /* Adds '...' if too long */
+      white-space: nowrap;
+    }
+
+    .date { 
+      white-space: nowrap;
+      font-family: monospace;
+      text-align: right;
+    }
+
+    .size { 
+      white-space: nowrap;
+      text-align: right;
+      font-family: monospace; 
+    }
+
+    @media (max-width: 600px) {
+  .row, .header {
+    /* We shrink the Date to 12ch on mobile to give Name more room */
+    font-size: 13px;
+
+    grid-template-columns: minmax(0, 1.2fr) 16ch 6ch 0,8fr;
+    gap: 10px;
+    width: 100%;
+    padding-right: 0;
+  }
+
+  body {
+    padding: 20px 10px;
+  }
+
+  .date {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .date, .size {
+    font-variant-numeric: tabular-nums;
+  }
+
+}
